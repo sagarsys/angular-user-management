@@ -1,0 +1,25 @@
+<div class="card-header d-flex justify-content-between">
+  <h5><span class="fa fa-id-card pr-3"></span> {{ user.id }}</h5>
+  <p>
+    User since {{ user.createdAt | amDateFormat: 'DD/MM/YYYY' }}
+    <span class="fa fa-calendar pl-2"></span>
+  </p>
+</div>
+<div class="card-body">
+  <p class="lead">
+    <span class="fa fa-user pr-3"></span>    
+    {{ user.name }}
+  </p>
+  <p>
+    <span class="fa fa-envelope pr-3"></span>
+    {{ user.email }}
+  </p>
+</div>
+<div class="card-footer d-flex justify-content-end">
+  <button class="btn btn-warning mx-1" (click)="onEditClick(user)">
+    <span class="fa fa-edit"></span>
+  </button>
+  <button class="btn btn-danger mx-1" (click)="onDeleteClick(user)">
+    <span class="fa fa-trash"></span>
+  </button>
+</div>

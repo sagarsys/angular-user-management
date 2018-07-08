@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="user-list__header d-flex">
+    <h2 class="w-75 py-3">Users</h2>
+    <div class="w-25 d-flex align-items-center justify-content-end">
+      <a class="btn btn-primary" routerLink="/users/new">
+        <span class="fa fa-plus-circle pr-3"></span>New
+      </a>
+    </div>
+  </div>
+  <ul *ngIf="users" class="row list-unstyled">
+    <li *ngFor="let user of users" class="col-12 card bg-dark text-white mb-3 p-3">
+      <app-user [user]="user" 
+        (edit)="onEdit($event)" 
+        (delete)="onDelete($event)">
+      </app-user>
+    </li>
+  </ul>
+</div>

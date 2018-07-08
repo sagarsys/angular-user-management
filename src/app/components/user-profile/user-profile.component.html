@@ -1,0 +1,57 @@
+<div class="container">
+  <h2 class="py-3">User Profile</h2>
+  <form class="user-form" novalidate
+    [formGroup]="userForm" (ngSubmit)="onSave($event, userForm)">
+
+    <legend>
+      <p>{{ isEdit ? 'Edit User' : 'New User' }}<p>
+    </legend>
+
+    <div class="alert alert-danger" role="alert" *ngIf="userForm.invalid && isSubmit">
+      <p *ngIf="userForm.get('name').invalid" class="mb-0">Name is required</p>
+      <p *ngIf="userForm.get('email').hasError('required')" class="mb-0">Email is required</p>
+      <p *ngIf="userForm.get('email').hasError('pattern')" class="mb-0">Email is not valid</p>
+    </div>
+
+    <div class="alert alert-success" role="alert" *ngIf="userForm.valid && isSubmit">
+      <p *ngIf="isEdit && userForm.untouched" class="mb-0">No changes have been made for User ID {{ user.id }} - {{ user.name }}!</p>
+      <p *ngIf="isEdit && userForm.dirty" class="mb-0">User ID {{ user.id }} - {{ user.name }}'s details have been updated successfully!</p>
+      <p *ngIf="!isEdit" class="mb-0">New user has been created successfully!</p>
+    </div>
+
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="name">
+          <span class="fa fa-user"></span>
+        </label>      
+      </div>
+      <input type="text" class="form-control"
+        [ngClass]="{ 'is-invalid': userForm.get('name').invalid && userForm.get('name').touched }"
+        id="name" formControlName="name"
+        placeholder="Name">
+    </div>
+
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="email">
+          <span class="fa fa-envelope"></span>
+        </label>      
+      </div>
+      <input type="email" class="form-control" 
+        [ngClass]="{ 'is-invalid': userForm.get('email').invalid && userForm.get('email').touched }"
+        id="email" formControlName="email"
+        placeholder="Email">
+    </div>
+
+    <div class="form-group mt-4">
+      <a class="btn btn-dark mr-1" routerLink="users">
+        <span class="fa fa-chevron-left pr-2"></span>Back
+      </a>
+      <button type="submit" class="btn btn-success">
+        <span class="fa fa-save pr-2"></span>Save
+      </button>
+    </div>
+    
+  </form>
+  
+</div>
