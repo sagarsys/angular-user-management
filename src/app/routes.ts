@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { UsersListComponent } from './components/users-list/users-list.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UsersListComponent } from './user/components/users-list/users-list.component';
+import { UserProfileComponent } from './user/components/user-profile/user-profile.component';
 
 export const ROUTES: Routes = [
   {
@@ -9,7 +9,7 @@ export const ROUTES: Routes = [
   },
   {
     path: 'users/:id',
-    component: UserProfileComponent 
+    component: UserProfileComponent
   },
     {
     path: 'users',

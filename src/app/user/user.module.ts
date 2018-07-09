@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'angular2-moment';
-import { UserModule } from './user/user.module'
 
-import { ROUTES } from './routes';
+import { ROUTES } from '../routes';
 
-import { AppComponent } from './app.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { UserComponent } from './components/user/user.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserService } from '../shared/services/user.service';
 
 @NgModule({
   imports:      [
@@ -18,10 +20,9 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     HttpClientModule,
     MomentModule,
-    UserModule,
     RouterModule.forRoot(ROUTES, { enableTracing: false })
   ],
-  declarations: [ AppComponent ],
-  bootstrap:    [ AppComponent ]
+  declarations: [ UsersListComponent, UserComponent, UserProfileComponent ],
+  providers:    [ UserService ]
 })
-export class AppModule { }
+export class UserModule { }

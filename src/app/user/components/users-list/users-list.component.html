@@ -7,12 +7,9 @@
       </a>
     </div>
   </div>
-  <ul *ngIf="users" class="row list-unstyled">
-    <li *ngFor="let user of users" class="col-12 card bg-dark text-white mb-3 p-3">
-      <app-user [user]="user" 
-        (edit)="onEdit($event)" 
-        (delete)="onDelete($event)">
-      </app-user>
+  <ul class="row list-unstyled">
+    <li *ngFor="let user of (userService.getUsers() | async)" class="col-12 card bg-dark text-white mb-3 p-3">
+      <app-user [user]="user"></app-user>
     </li>
   </ul>
 </div>

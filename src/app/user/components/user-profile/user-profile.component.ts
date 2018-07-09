@@ -1,16 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { UserModel } from '../../shared/models/user.model';
-import { UserService } from '../../shared/services/user.service';
+import { UserModel } from '../../../shared/models/user.model';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html'
 })
 
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
 
   isEdit: boolean;
   users: UserModel[];
@@ -30,10 +30,10 @@ export class UserProfileComponent implements OnInit {
     this.route.paramMap
       .subscribe(params => {
         this.isEdit = !!parseInt(params.get('id'));
-        this.userService.users$.subscribe(users => {
-          this.users = users; 
+        this.userService.getUsers().subscribe(users => {
+          this.users = users;
           if (this.isEdit) {
-            const index = this.users.findIndex(user => user.id === parseInt(params.get('id')));          
+            const index = this.users.findIndex(user => user.id === parseInt(params.get('id')));
             this.user = this.users[index];
           }
         });
@@ -58,13 +58,12 @@ export class UserProfileComponent implements OnInit {
       } else {
         // create new user
         this.user = new UserModel();
-        this.user.id = this.users[this.users.length - 1].id + 1;
+        this.user.id = (this.users[this.users.length - 1] && this.users[this.users.length - 1].id + 1) || 1;
         this.user.name = form.value.name;
         this.user.email = form.value.email;
         // add user
         this.userService.add(this.user);
       }
-      
       // navigate to users list
       setTimeout(() => this.router.navigateByUrl('/users'), 2000);
     }
@@ -88,19 +87,6 @@ export class UserProfileComponent implements OnInit {
         ]
       ]
     });
-    // this.userForm = new FormGroup({
-    //   name: new FormControl(
-    //     this.isEdit ? this.user.name : '',
-    //     Validators.required
-    //   ),
-    //   email: new FormControl(
-    //     this.isEdit ? this.user.email : '',
-    //     Validators.compose([
-    //       Validators.required,
-    //       Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-    //     ])
-    //   )
-    // });
   }
 
 }
