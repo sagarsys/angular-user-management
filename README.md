@@ -1,6 +1,9 @@
 # angular-user-management
 
-User management UI using angular2+ & bootstrap 4
+User management UI using angular2+ & bootstrap 4 
+- view a list of users
+- add, edit or delete users from user list -- user profile management
+- use reactive forms to validate user profile details (editing/creation)
 
 ## Quick start
 
